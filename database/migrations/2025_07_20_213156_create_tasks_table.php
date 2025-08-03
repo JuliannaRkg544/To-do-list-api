@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->boolean('is_done');
+            $table->boolean('is_done')->default(false);
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });

@@ -4,16 +4,47 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use  App\Http\Requests\TaskRequest;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
-      public function getAllTasks(Request  $request){
+      public function createTask(TaskRequest $request){
         try {
-            $tasks = Task::select('description', 'title', 'is_done')->get();
-            return response()->json([
-                'success' => true,
-                'data' => $tasks,
-            ], 200);
+            
+            Task::create($request->validated());
+            Log::info($request->validated());
+            return response()->json(null, 200);
+
+        } catch(\Exception $e) {
+             return response()->json([
+                'success' => false,
+                'message' => 'Erro ao buscar as tarefas.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+      }
+      public function updateTask(TaskRequest $request, $taskid){
+        try{
+            $task = Task::findOrFail($taskid);
+            $task->update($request->validated());
+            Log::info($request->validated());
+            return response()->json(null,200);
+        }
+        catch (\Exception $e) {
+             return response()->json([
+                'success' => false,
+                'message' => 'Erro ao buscar as tarefas.',
+                'error' => $e->getMessage()
+            ], 500);
+        
+        }
+        
+      }
+      public function getAllTasks(){
+        try {
+            $tasks = Task::select('id','description', 'title', 'is_done')->get();
+            return response()->json( $tasks, 200);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
@@ -22,5 +53,37 @@ class TaskController extends Controller
             ], 500);
         }
 
+}
+        public function getOneTask($taskid){
+        try {
+           $task = Task::where('id', $taskid)->select('description', 'title', 'is_done')->first();
+           return response()->json($task, 200);
+        } catch (\Exception $e) {
+             return response()->json([
+                'success' => false,
+                'message' => 'Erro ao buscar as tarefas.',
+                'error' => $e->getMessage()
+            ], 500);
+        
+        }
     }
+    public function deleteTask($taskid){
+        try {
+             $task = Task::find($taskid);
+            
+               if (!$task) {
+            return response()->json(['message' => 'Tarefa não encontrada.'], 404);
+        }
+        Log::info($task);
+        $task->delete();
+        return response()->json(null,200);
+        }  catch (\Exception $e) {
+             return response()->json([
+                'success' => false,
+                'message' => 'Erro ao buscar as tarefas.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 }
