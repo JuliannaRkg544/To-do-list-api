@@ -26,4 +26,14 @@ class TaskRequest extends FormRequest
         'description' => 'required|string',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'O campo título é obrigatório.',
+            'title.string' => 'O título deve ser um texto.',
+            'description.required' => 'O campo descrição é obrigatório.',
+            'description.string' => 'A descrição deve ser um texto.',
+        ];
+    }
 }

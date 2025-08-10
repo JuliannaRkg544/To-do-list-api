@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
-      public function createTask(TaskRequest $request){
+      public function createTask( TaskRequest $request){
         try {
             
             Task::create($request->validated());
@@ -34,7 +34,7 @@ class TaskController extends Controller
         catch (\Exception $e) {
              return response()->json([
                 'success' => false,
-                'message' => 'Erro ao buscar as tarefas.',
+                'message' => 'Erro ao atualizar tarefa.',
                 'error' => $e->getMessage()
             ], 500);
         
@@ -61,7 +61,7 @@ class TaskController extends Controller
         } catch (\Exception $e) {
              return response()->json([
                 'success' => false,
-                'message' => 'Erro ao buscar as tarefas.',
+                'message' => 'Erro ao busca tarefa.',
                 'error' => $e->getMessage()
             ], 500);
         
@@ -80,7 +80,7 @@ class TaskController extends Controller
         }  catch (\Exception $e) {
              return response()->json([
                 'success' => false,
-                'message' => 'Erro ao buscar as tarefas.',
+                'message' => 'Erro ao deletar tarefa.',
                 'error' => $e->getMessage()
             ], 500);
         }
