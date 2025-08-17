@@ -10,7 +10,7 @@
 # 📋 To-Do List API
 API de uma to-do list desenvolvida com Laravel. 
 
-##📡 Rotas
+## 📡 Rotas
 - `/get-all-tasks` → Rota que busca todas as tarefas de um usuário
 - `/get-task-byId/{taskid}` → Rota busca task única pelo id
 - `/create-task` →  Rota que cria uma task
@@ -18,7 +18,7 @@ API de uma to-do list desenvolvida com Laravel.
 - `/update-task-done/{taskid}` → Rota que atualiza status da task, para feita ou não feita
 - `/delete-task/{taskid}` → Rota que deleta task
 
-##⚡ Como executar o projeto
+## ⚡ Como executar o projeto
 ```bash
 1️⃣ Clonar repositório
 git clone https://github.com/JuliannaRkg544/To-do-list-api.git
